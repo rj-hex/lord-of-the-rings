@@ -1,43 +1,61 @@
+import { Col, Modal, Row, Select, Table } from 'antd';
 import React, { useState } from 'react';
-import ReactModal from 'react-modal';
-import { useSelector } from 'react-redux';
 import Header from '../header/Header';
 import './CharacterList.css';
 
-function CharacterList({ characterData = [] }) {
-    console.log(characterData);
-    const sortQuery = useSelector((state) => state.filter.sort) || "";
+const { Option } = Select;
+
+function CharacterList({ characterData = [], setLimit }) {
     const [open, setOpen] = useState(false);
     const [characterSpecific, setCharacterSpecific] = useState({});
+    // const gender = useSelector((state) => state.filter);
     const popUpModal = (id) => {
+        console.log(id);
         setOpen(true);
         setCharacterSpecific(() => characterData.find(character => character._id === id));
     };
+
+    const characterDataList = characterData.flatMap((character, index) => ({ key: (index + 1).toString(), _id: character._id, serial_no: index + 1, name: character.name || "-", race: character.race || "-", gender: character.gender || "-" }));
+    const colmuns = [
+        {
+            title: 'Id',
+            dataIndex: "serial_no",
+            key: 'serial_no'
+        }, {
+            title: 'Name',
+            dataIndex: "name",
+            key: 'name'
+        }, {
+            title: "Race",
+            dataIndex: 'race',
+            key: 'race'
+        }, {
+            title: "Gender",
+            dataIndex: 'gender',
+            key: 'gender'
+        }, {
+            title: "Action",
+            dataIndex: 'gender',
+            key: 'gender',
+            render: (_, { _id }) => (
+                <span onClick={() => popUpModal(_id)} style={{ cursor: 'pointer' }}>Details {">>"}</span>
+            )
+        }
+    ];
     return (
         <>
-            <table className='character-list'>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Race</th>
-                        <th>Gender</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {characterData?.map((character, index) => (
-                        <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{character.name}</td>
-                            <td>{character.race}</td>
-                            <td>{character.gender}</td>
-                            <td onClick={() => popUpModal(character._id)} className="character-list__details">Details {'>>'}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <ReactModal isOpen={open} style={{ content: { padding: '0px' } }}>
+            <Table className='character-list' columns={colmuns} dataSource={characterDataList} showSorterTooltip={false} pagination={{ pageSize: 10 }} />
+            <Row className='characterList__selectWrapper'>
+                <Col>
+                    <Select defaultValue="10" onSelect={(selectedValue) => setLimit(selectedValue)} className="characterList__select" placeholder="Select limit" style={{ width: 120, marginRight: 'auto' }}>
+                        <Option value="10">limit 10</Option>
+                        <Option value="20">limit 20</Option>
+                        <Option value="50">limit 50</Option>
+                    </Select>
+                </Col>
+            </Row>
+
+            <Modal open={open} className="character__modal" footer={null}>
                 <Header name={characterSpecific.name} />
                 <div className='popup-modal-container'>
                     <section className='popup-modal-detail'>
@@ -69,15 +87,9 @@ function CharacterList({ characterData = [] }) {
 
                     <button onClick={() => setOpen(false)}>close</button>
                 </div>
-            </ReactModal>
+            </Modal>
         </>
     );
 }
 
 export default CharacterList;
-
-
-// const Popup = ({ id }) => {
-//     return (
-//     );
-// };

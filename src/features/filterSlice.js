@@ -7,16 +7,16 @@ export const filterSlice = createSlice({
     initialState,
     reducers: {
         search: (state, action) => {
-            state["search"] = action.payload;
+            state["search"] = action.payload || "";
         },
         sort: (state, action) => {
-            state["sort"] = action.payload;
+            state["sort"] = action.payload || "";
         },
         race: (state, action) => {
-            state["race"] = action.payload;
+            state["race"] = action.payload || "";
         },
         gender: (state, action) => {
-            state["gender"] = action.payload;
+            state["gender"] = action.payload || "";
         }
     }
 });

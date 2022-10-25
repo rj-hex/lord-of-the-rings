@@ -1,19 +1,16 @@
-.filter {
+.ant-form.filter {
     padding-top: 30px;
     padding-left: 50px;
     padding-right: 50px;
 }
 
 .filter__search-sort {
-    display: flex;
     justify-content: space-between;
 }
 
-.filter__search {
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-    flex: 0.9;
+
+.ant-form-item.filter__search {
+    margin-bottom: 0;
 }
 
 .filter__search-input-wrapper {
@@ -36,14 +33,6 @@
     width: 300px;
 }
 
-.filter__submit {
-    border: 1px solid black;
-    outline: none;
-    background-color: transparent;
-    padding: 10px 50px;
-    cursor: pointer;
-}
-
 .filter__sort-gender {
     display: flex;
     justify-content: space-between;
@@ -55,10 +44,22 @@
     margin-top: 25px;
 }
 
-.filter__select-wrapper {
+.ant-form-item.filter__select-wrapper {
     display: flex;
-    column-gap: 10px;
     align-items: center;
     justify-content: center;
+    margin-bottom: 0;
+    width: 100%;
+}
 
+.ant-form-item.filter__select-wrapper .ant-form-item-row {
+    width: 100%;
+}
+
+.ant-col.filter__submit-wrapper {
+    flex-basis: auto;
+}
+
+.ant-col.filter__submit-wrapper .filter__submit {
+    padding: 5px 50px;
 }

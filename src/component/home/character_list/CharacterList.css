@@ -1,7 +1,7 @@
 .character-list {
     width: 100%;
     margin-top: 40px;
-    text-align: center;
+    padding: 0 50px;
 }
 
 .popup-modal-detail {
@@ -36,4 +36,23 @@
     cursor: pointer;
     background: transparent;
     text-transform: capitalize;
+}
+
+.characterList__selectWrapper {
+    justify-content: flex-end;
+    padding-right: 50px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.character__modal .ant-modal-body {
+    padding: 0;
+}
+
+.character__modal {
+    width: 90% !important;
+}
+
+.character__modal .ant-modal-close {
+    display: none !important;
 }
